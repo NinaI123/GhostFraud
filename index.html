@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>First National Bank</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .bank-header {
+            background: linear-gradient(135deg, #0052a5 0%, #002e5d 100%);
+            color: white;
+        }
+        .transaction-card {
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+        }
+        .transaction-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .positive-amount {
+            border-left-color: #28a745;
+        }
+        .negative-amount {
+            border-left-color: #dc3545;
+        }
+        .login-form {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+        }
+        .security-alert {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 350px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <!-- Bank Header -->
+    <header class="bank-header py-3 mb-4">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <img src="https://via.placeholder.com/40" alt="Bank Logo" class="me-3">
+                    <h1 class="h4 mb-0">First National Bank</h1>
+                </div>
+                <div>
+                    <span class="badge bg-light text-dark me-2">Online Banking</span>
+                    <span id="current-time" class="text-white"></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Banking Interface -->
+    <div class="container">
+        <div class="row">
+            <!-- Account Summary -->
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-header bg-white">
+                        <h2 class="h5 mb-0">Account Summary</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between mb-3">
+                            <span>Checking Account</span>
+                            <strong>$12,456.78</strong>
+                        </div>
+                        <div class="d-flex justify-content-between mb-3">
+                            <span>Savings Account</span>
+                            <strong>$45,789.32</strong>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between">
+                            <span>Total Balance</span>
+                            <strong class="text-primary">$58,246.10</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Transfer -->
+                <div class="card mt-4">
+                    <div class="card-header bg-white">
+                        <h2 class="h5 mb-0">Quick Transfer</h2>
+                    </div>
+                    <div class="card-body">
+                        <form id="transfer-form">
+                            <div class="mb-3">
+                                <label class="form-label">To Account</label>
+                                <select class="form-select">
+                                    <option>John Smith (****3456)</option>
+                                    <option>ACME Corp (****7890)</option>
+                                    <option>New Recipient...</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Amount</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" placeholder="0.00">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Transfer Now</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Transactions -->
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                        <h2 class="h5 mb-0">Recent Transactions</h2>
+                        <div>
+                            <!-- <button class="btn btn-sm btn-outline-secondary" id="test-normal">
+                                Test Normal
+                            </button>
+                            <button class="btn btn-sm btn-outline-warning ms-2" id="test-suspicious">
+                                Test Suspicious
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger ms-2" id="test-fraudulent">
+                                Test Fraudulent
+                            </button> -->
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="list-group list-group-flush">
+                            <div class="list-group-item transaction-card positive-amount">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h3 class="h6 mb-1">Deposit: Paycheck</h3>
+                                        <small class="text-muted">Jun 15, 2023 • 10:45 AM</small>
+                                    </div>
+                                    <div class="text-success">
+                                        +$3,245.67
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="list-group-item transaction-card negative-amount">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h3 class="h6 mb-1">Transfer to John Smith</h3>
+                                        <small class="text-muted">Jun 14, 2023 • 2:30 PM</small>
+                                    </div>
+                                    <div class="text-danger">
+                                        -$500.00
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="list-group-item transaction-card negative-amount">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h3 class="h6 mb-1">Amazon Purchase</h3>
+                                        <small class="text-muted">Jun 13, 2023 • 8:15 PM</small>
+                                    </div>
+                                    <div class="text-danger">
+                                        -$129.99
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- New Transaction Form -->
+                <div class="card mt-4">
+                    <div class="card-header bg-white">
+                        <h2 class="h5 mb-0">New Transaction</h2>
+                    </div>
+                    <div class="card-body">
+                        <form id="transaction-form">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Recipient Name</label>
+                                    <input type="text" class="form-control" placeholder="John Doe">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Account Number</label>
+                                    <input type="text" class="form-control" placeholder="XXXX-XXXX-XXXX">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Amount</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">$</span>
+                                        <input type="number" class="form-control" placeholder="0.00" id="transaction-amount">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Date</label>
+                                    <input type="date" class="form-control">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Description</label>
+                                <textarea class="form-control" rows="2"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit Transaction</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Security Alert (hidden by default) -->
+    <div class="alert alert-warning security-alert d-none" id="security-alert">
+        <button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button>
+        <h4 class="alert-heading" id="alert-title">Security Notice</h4>
+        <p id="alert-message"></p>
+        <hr>
+        <div class="d-flex justify-content-between">
+            <button class="btn btn-sm btn-outline-secondary" id="dismiss-alert">Dismiss</button>
+            <button class="btn btn-sm btn-danger" id="lock-account">Lock Account</button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='capture.js') }}"></script>
+    <script>
+        // Update current time
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('current-time').textContent = now.toLocaleTimeString();
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        // Test scenarios
+        document.getElementById('test-normal').addEventListener('click', () => {
+            simulateBehavior('normal');
+            showAlert('Behavior Analysis', 'Your activity appears normal.', 'success');
+        });
+
+        document.getElementById('test-suspicious').addEventListener('click', () => {
+            simulateBehavior('suspicious');
+            showAlert('Unusual Activity Detected', 
+                'We noticed unusual mouse movements. Please verify your identity.', 'warning');
+        });
+
+        document.getElementById('test-fraudulent').addEventListener('click', () => {
+            simulateBehavior('fraudulent');
+            showAlert('High Risk Activity!', 
+                'Potential fraud detected! Account temporarily locked.', 'danger');
+        });
+
+        function showAlert(title, message, type) {
+            const alert = document.getElementById('security-alert');
+            alert.classList.remove('alert-warning', 'alert-danger', 'alert-success');
+            alert.classList.add(`alert-${type}`);
+            alert.classList.remove('d-none');
+            
+            document.getElementById('alert-title').textContent = title;
+            document.getElementById('alert-message').textContent = message;
+        }
+
+        document.getElementById('dismiss-alert').addEventListener('click', () => {
+            document.getElementById('security-alert').classList.add('d-none');
+        });
+
+        document.getElementById('lock-account').addEventListener('click', () => {
+            showAlert('Account Locked', 
+                'Your account has been temporarily locked for security. Please call customer service.', 'danger');
+        });
+
+        // Simulate different user behaviors
+        function simulateBehavior(type) {
+            const behaviorTracker = window.behaviorTracker;
+            
+            // Clear existing data
+            behaviorTracker.data.typing_intervals = [];
+            behaviorTracker.data.mouse_speeds = [];
+            behaviorTracker.data.click_timings = [];
+            
+            // Generate test data based on type
+            switch(type) {
+                case 'normal':
+                    // Human-like patterns
+                    for (let i = 0; i < 20; i++) {
+                        behaviorTracker.data.typing_intervals.push(100 + Math.random() * 150);
+                        behaviorTracker.data.mouse_speeds.push(0.2 + Math.random() * 0.5);
+                    }
+                    break;
+                    
+                case 'suspicious':
+                    // Mixed human/bot patterns
+                    for (let i = 0; i < 20; i++) {
+                        behaviorTracker.data.typing_intervals.push(
+                            i % 3 === 0 ? 50 + Math.random() * 20 : 150 + Math.random() * 200
+                        );
+                        behaviorTracker.data.mouse_speeds.push(
+                            i % 4 === 0 ? 1.5 + Math.random() : 0.3 + Math.random() * 0.4
+                        );
+                    }
+                    break;
+                    
+                case 'fraudulent':
+                    // Bot-like patterns
+                    for (let i = 0; i < 30; i++) {
+                        behaviorTracker.data.typing_intervals.push(50 + Math.random() * 10);
+                        behaviorTracker.data.mouse_speeds.push(2 + Math.random() * 0.5);
+                    }
+                    break;
+            }
+            
+            // Force immediate send
+            behaviorTracker.sendData();
+        }
+    </script>
+</body>
+</html>
